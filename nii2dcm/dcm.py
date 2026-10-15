@@ -23,6 +23,7 @@ from nii2dcm.modules.general_reference import GeneralReference
 from nii2dcm.modules.image_plane import ImagePlane
 from nii2dcm.modules.image_pixel import ImagePixel
 from nii2dcm.modules.mr_image import MRImage
+from nii2dcm.modules.ct_image import CTImage
 from nii2dcm.modules.sop_common import SOPCommon
 from nii2dcm.modules.common_instance_reference import CommonInstanceReference
 from nii2dcm.modules.voi_lut import VOILUT
@@ -305,7 +306,7 @@ class DicomMRI(Dicom):
 class DicomCT(Dicom):
     """
     DicomCT subclass
-    - Sets appropriate SOPClass UIDs for MR
+    - Sets appropriate SOPClass UIDs for CT
     - Adds MR Image Module to Dicom object
     """
 

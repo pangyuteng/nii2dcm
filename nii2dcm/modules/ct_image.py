@@ -15,7 +15,7 @@ class CTImage(Module):
     def __init__(self):
         super().__init__()
 
-        self.module_type = 'MRImage'
+        self.module_type = 'CTImage'
 
         # For now, will omit thereby inheriting parent value
         # self.ds.ImageType = ''
