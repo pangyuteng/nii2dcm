@@ -24,14 +24,7 @@ class CTImage(Module):
 
         # PhotometricInterpretation
         self.ds.PhotometricInterpretation = 'MONOCHROME2'
-    
-        # PresentationLUTShape
-        # depends on PhotometricInterpretation: https://dicom.innolitics.com/ciods/mr-image/general-image/20500020
-        if self.ds.PhotometricInterpretation == 'MONOCHROME2':
-            self.ds.PresentationLUTShape = 'IDENTITY'
-        elif self.ds.PhotometricInterpretation == 'MONOCHROME1':
-            self.ds.PresentationLUTShape = 'INVERSE'
-    
+
         # Bits Allocated
         # defined to equal 16 for MR Image Module
         # https://dicom.nema.org/medical/Dicom/current/output/chtml/part03/sect_C.8.3.html#sect_C.8.3.1.1.4
