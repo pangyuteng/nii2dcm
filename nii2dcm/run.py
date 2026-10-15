@@ -33,7 +33,7 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
     # TODO: create method in nii class
     nii_img = nii.get_fdata()
     if dicom_type is not None and dicom_type.upper() in ['CT']:
-        nii_img = nii_img.astype("int32")
+        nii_img = nii_img.astype("int16")
     else:
         nii_img = nii_img.astype("uint16")  # match DICOM datatype
 
