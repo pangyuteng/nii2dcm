@@ -1,11 +1,9 @@
 """
-IOD Module – MR Image
+IOD Module - CT Image
 
-C.8.3.1
-https://dicom.nema.org/medical/Dicom/current/output/chtml/part03/sect_C.8.3.html#sect_C.8.3.1
+C.8.2.1
+https://dicom.nema.org/medical/Dicom/2024c/output/chtml/part03/sect_C.8.2.html
 
-Note: Tags labelled ":missing:" are defined in the NEMA MR standard, but I have not found in real DICOMs exported from
-an MRI scanner.
 """
 
 
