@@ -31,7 +31,11 @@ class CTImage(Module):
         self.ds.BitsAllocated = 16
         self.ds.BitsStored = 12
         self.ds.HighBit = self.ds.BitsStored - 1
-    
+
+        self.ds.RescaleSlope = '' # typically 1
+        self.ds.RescaleIntercept = '' # typically -1024
+        self.ds.RescaleType = "HU"
+
         self.ds.KVP = ''
         self.ds.TubeCurrent = ''
         self.ds.ExposureTime = ''

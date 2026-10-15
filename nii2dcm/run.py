@@ -32,7 +32,10 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
     # get pixel data from NIfTI
     # TODO: create method in nii class
     nii_img = nii.get_fdata()
-    nii_img = nii_img.astype("uint16")  # match DICOM datatype
+    if dicom_type is not None and dicom_type.upper() in ['CT']:
+        nii_img = nii_img.astype("int32")
+    else:
+        nii_img = nii_img.astype("uint16")  # match DICOM datatype
 
     # get NIfTI parameters
     nii2dcm_parameters = nii2dcm.nii.Nifti.get_nii2dcm_parameters(nii)
