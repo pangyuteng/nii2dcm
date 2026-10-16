@@ -18,7 +18,7 @@ def write_slice(dcm, img_data, slice_index, output_dir):
 
     output_filename = r'IM_%04d.dcm' % (slice_index + 1)  # begin filename from 1, e.g. IM_0001.dcm
 
-    img_slice = img_data[:, :, slice_index]
+    img_slice = img_data[:, :, slice_index].T
 
     # Instance UID – unique to current slice
     dcm.ds.SOPInstanceUID = pyd.uid.generate_uid(None)
