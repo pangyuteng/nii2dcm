@@ -24,7 +24,8 @@ def write_slice(dcm, img_data, slice_index, output_dir):
     dcm.ds.SOPInstanceUID = pyd.uid.generate_uid(None)
 
     # write pixel data
-    dcm.ds.PixelData = img_slice.tobytes()
+    #dcm.ds.PixelData = img_slice.tobytes()
+    pyd.pixels.utils.set_pixel_data(dcm,img_slice)
 
     # write DICOM file
     dcm.ds.save_as(os.path.join(output_dir, output_filename), write_like_original=False)

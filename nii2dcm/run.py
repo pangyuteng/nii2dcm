@@ -32,10 +32,7 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
     # get pixel data from NIfTI
     # TODO: create method in nii class
     nii_img = nii.get_fdata()
-    if dicom_type is not None and dicom_type.upper() in ['CT']:
-        nii_img = nii_img.astype("int16")
-    else:
-        nii_img = nii_img.astype("uint16")  # match DICOM datatype
+    nii_img = nii_img.astype("uint16")  # match DICOM datatype
 
     # get NIfTI parameters
     nii2dcm_parameters = nii2dcm.nii.Nifti.get_nii2dcm_parameters(nii)
@@ -83,6 +80,6 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
         transfer_nii_hdr_instance_tags(dicom, nii2dcm_parameters, instance_index)
 
         # Write slice
-        write_slice(dicom, nii_img, instance_index, output_dcm_path)
+        write_slice(dicom, nii.get_fdata(), instance_index, output_dcm_path)
 
     print(f'nii2dcm: DICOM files written to: {abspath(output_dcm_path)}')  # TODO use logger
