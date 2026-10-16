@@ -26,8 +26,8 @@ class CTImage(Module):
         self.ds.PhotometricInterpretation = 'MONOCHROME2'
 
         # Bits Allocated
-        # defined to equal 16 for MR Image Module
-        # https://dicom.nema.org/medical/Dicom/current/output/chtml/part03/sect_C.8.3.html#sect_C.8.3.1.1.4
+        # defined to equal 16 for CT Image Module
+        # https://dicom.nema.org/medical/Dicom/current/output/chtml/part03/sect_C.8.2.html
         self.ds.BitsAllocated = 16
         self.ds.BitsStored = 16
         self.ds.HighBit = self.ds.BitsStored - 1

@@ -110,7 +110,7 @@ class Nifti:
 
         }
         if dicom_type.upper() in ["CT"]:
-            print([dircosX[0], dircosX[1], dircosX[2], dircosY[0], dircosY[1], dircosY[2]],'!!!!!')
-            nii2dcm_parameters['ImageOrientationPatient'] = [dircosX[0], dircosX[1], dircosX[2], dircosY[0], dircosY[1], dircosY[2]]
+            nii2dcm_parameters['ImageOrientationPatient'] = [1,0,0,0,1,0]
+            nii2dcm_parameters['AcquisitionMatrix'] = '' # nuke this
 
         return nii2dcm_parameters
