@@ -9,7 +9,7 @@ import numpy as np
 
 class Nifti:
 
-    def get_nii2dcm_parameters(nib_nii):
+    def get_nii2dcm_parameters(nib_nii,dicom_type=None):
         """
         Get general NIfTI header parameters relevant for DICOM tag transferal.
         :nib_nii - NIfTI loaded with nibabel
@@ -52,6 +52,14 @@ class Nifti:
         windowWidth = round(maxI - minI)
         rescaleIntercept = 0
         rescaleSlope = 1
+
+        if dicom_type.upper() in ["CT"]:
+            maxI = 1024
+            minI = -1024
+            windowCenter = round((maxI - minI) / 2)
+            windowWidth = round(maxI - minI)
+            rescaleIntercept = -1024
+            rescaleSlope = 1
 
         # FOV
         fovX = nX * dimX

@@ -3,6 +3,7 @@ nii2dcm runner
 """
 from os.path import abspath
 
+import numpy as np
 import nibabel as nib
 import pydicom as pyd
 
@@ -35,7 +36,7 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
     nii_img = nii_img.astype("uint16")  # match DICOM datatype
 
     # get NIfTI parameters
-    nii2dcm_parameters = nii2dcm.nii.Nifti.get_nii2dcm_parameters(nii)
+    nii2dcm_parameters = nii2dcm.nii.Nifti.get_nii2dcm_parameters(nii,dicom_type=dicom_type)
 
     # initialise nii2dcm.dcm object
     # --dicom_type specified on command line
@@ -53,6 +54,10 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
 
     if dicom_type is not None and dicom_type.upper() in ['CT']:
         dicom = nii2dcm.dcm.DicomCT('nii2dcm_dicom_ct.dcm')
+        nii_img = nii.get_fdata()
+        nii_img += 1024 # intercept specified in get_nii2dcm_parameters
+        nii_img = np.clip(nii_img,0,65535)
+        nii_img = nii_img.astype("uint16")
 
     # load reference DICOM object
     # --ref_dicom_file specified on command line

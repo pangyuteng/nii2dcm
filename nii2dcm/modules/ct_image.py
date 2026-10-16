@@ -29,11 +29,10 @@ class CTImage(Module):
         # defined to equal 16 for MR Image Module
         # https://dicom.nema.org/medical/Dicom/current/output/chtml/part03/sect_C.8.3.html#sect_C.8.3.1.1.4
         self.ds.BitsAllocated = 16
-        self.ds.BitsStored = 12
+        self.ds.BitsStored = 16
         self.ds.HighBit = self.ds.BitsStored - 1
 
-        self.ds.RescaleSlope = '' # typically 1
-        self.ds.RescaleIntercept = '' # typically -1024
+        # RescaleSlope=1, RescaleIntercept=-1024
         self.ds.RescaleType = "HU"
 
         self.ds.KVP = ''
