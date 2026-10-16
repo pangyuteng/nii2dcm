@@ -19,11 +19,11 @@ RUN pip install --upgrade pip && \
 # Install nii2dcm requirements
 RUN pip install -r requirements.txt
 
-# # Build package from source
-# RUN pip install .
+# Build package from source
+RUN pip install .
 
-# # Test nii2dcm install
-# # To see output locally during build process: docker build -t nii2dcm --progress=plain .
-# RUN nii2dcm -h
+# Test nii2dcm install
+# To see output locally during build process: docker build -t nii2dcm --progress=plain .
+RUN nii2dcm -h
 
-# ENTRYPOINT ["nii2dcm"]
+ENTRYPOINT ["nii2dcm"]
