@@ -85,6 +85,6 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
         transfer_nii_hdr_instance_tags(dicom, nii2dcm_parameters, instance_index)
 
         # Write slice
-        write_slice(dicom, nii.get_fdata(), instance_index, output_dcm_path)
+        write_slice(dicom, nii_img, instance_index, output_dcm_path)
 
     print(f'nii2dcm: DICOM files written to: {abspath(output_dcm_path)}')  # TODO use logger
