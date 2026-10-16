@@ -59,6 +59,8 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
         nii_img = np.clip(nii_img,0,65535)
         nii_img = nii_img.astype("uint16")
 
+    nii_img = np.transpose(nii_img,(1,0,2))
+
     # load reference DICOM object
     # --ref_dicom_file specified on command line
     if ref_dicom_file is not None:
