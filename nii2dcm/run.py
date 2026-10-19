@@ -3,6 +3,7 @@ nii2dcm runner
 """
 from os.path import abspath
 
+import numpy as np
 import nibabel as nib
 import pydicom as pyd
 
