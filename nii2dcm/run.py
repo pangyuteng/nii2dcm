@@ -51,6 +51,15 @@ def run_nii2dcm(input_nii_path, output_dcm_path, dicom_type=None, ref_dicom_file
         nii_img[nii_img < 0] = 0  # set background pixels = 0 (negative in SVRTK)
         nii_img = nii_img.astype("uint16")
 
+    if dicom_type is not None and dicom_type.upper() in ['CT']:
+        dicom = nii2dcm.dcm.DicomCT('nii2dcm_dicom_ct.dcm')
+        nii_img = nii.get_fdata()
+        nii_img += 1024
+        nii_img = np.clip(nii_img,0,65536)
+        nii_img = nii_img.astype("uint16")
+        nii2dcm_parameters['RescaleIntercept'] = str(-1024)
+        nii2dcm_parameters['rescaleSlope'] = str(1)
+
     # load reference DICOM object
     # --ref_dicom_file specified on command line
     if ref_dicom_file is not None:

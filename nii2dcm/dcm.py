@@ -23,6 +23,7 @@ from nii2dcm.modules.general_reference import GeneralReference
 from nii2dcm.modules.image_plane import ImagePlane
 from nii2dcm.modules.image_pixel import ImagePixel
 from nii2dcm.modules.mr_image import MRImage
+from nii2dcm.modules.ct_image import CTImage
 from nii2dcm.modules.sop_common import SOPCommon
 from nii2dcm.modules.common_instance_reference import CommonInstanceReference
 from nii2dcm.modules.voi_lut import VOILUT
@@ -299,6 +300,91 @@ class DicomMRI(Dicom):
             'RequestAttributesSequence',  # SQ Sequence
             'RequestingPhysician',
             'RequestingService',
+        ]
+
+
+
+class DicomCT(Dicom):
+    """
+    DicomCT subclass
+    - Sets appropriate SOPClass UIDs for CT
+    - Adds MR Image Module to Dicom object
+    """
+
+    def __init__(self, filename=nii2dcm_temp_filename):
+        super().__init__(filename)
+
+        self.ds.Modality = 'CT'
+
+        # CT Image Storage SOP Class
+        # UID = 1.2.840.10008.5.1.4.1.1.2
+        # https://dicom.nema.org/dicom/2013/output/chtml/part04/sect_I.2.html
+        self.file_meta.MediaStorageSOPClassUID = "1.2.840.10008.5.1.4.1.1.2"
+        self.ds.SOPClassUID = "1.2.840.10008.5.1.4.1.1.2"
+
+        """
+        Initialise subclass CIOD Modules
+        """
+        # Add CT-specific modules here if needed
+        self.add_module(CTImage())
+
+        """
+        DICOM Attributes to transfer from DICOM supplied using --ref_dicom CLI option
+        """
+        self.attributes_to_transfer = [
+            "AccessionNumber",
+            "InstitutionName",
+            "InstitutionAddress",
+            "ReferringPhysicianName",
+            "StationName",
+            "StudyDescription",
+            "ProcedureCodeSequence",  # SQ Sequence
+            "InstitutionalDepartmentName",
+            "PerformingPhysicianName",
+            "OperatorsName",
+            "ManufacturerModelName",
+            "ReferencedStudySequence",  # SQ Sequence
+            "RelatedSeriesSequence",  # SQ Sequence
+            "PatientName",
+            "PatientID",
+            "PatientBirthDate",
+            "PatientSex",
+            "PatientAge",
+            "PatientSize",
+            "PatientWeight",
+            "BodyPartExamined",
+            # CT Image Module Attributes
+            "KVP",
+            "TubeCurrent",
+            "ExposureTime",
+            "Exposure",
+            "SliceThickness",
+            "GantryDetectorTilt",
+            "TableHeight",
+            "RotationDirection",
+            "ScanLength",
+            "TotalCollimationWidth",
+            "DataCollectionDiameter",
+            "ReconstructionDiameter",
+            "ConvolutionKernel",
+            "RevolutionTime",
+            "SingleCollimationWidth",
+            "PitchFactor",
+            "ExposureModulationType",
+            "EstimatedDoseSaving",
+            "CTDIvol",
+            "DeviceSerialNumber",
+            "SoftwareVersions",
+            "PatientPosition",
+            # General Study Module Attributes
+            "StudyInstanceUID",  # Important: enables new DICOM to be filed in original Study
+            "StudyID",
+            "AcquisitionNumber",  # include or set in Dicom subclass?
+            "FrameOfReferenceUID",  # include?
+            "RequestAttributesSequence",  # SQ Sequence
+            "RequestingPhysician",
+            "RequestingService",
+            "SeriesDescription",
         ]
 
 

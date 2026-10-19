@@ -91,9 +91,9 @@ class Nifti:
             'RescaleIntercept': str(rescaleIntercept),
             'RescaleSlope': str(rescaleSlope),
             'SpacingBetweenSlices': round(float(dimZ), 2),
-            'ImageOrientationPatient': [dircosY[0], dircosY[1], dircosY[2], dircosX[0], dircosX[1], dircosX[2]],
             # alternative:
-            # 'ImageOrientationPatient': [dircosX[0], dircosX[1], dircosX[2], dircosY[0], dircosY[1], dircosY[2]],
+            # 'ImageOrientationPatient': [dircosY[0], dircosY[1], dircosY[2], dircosX[0], dircosX[1], dircosX[2]],
+            'ImageOrientationPatient': [dircosX[0], dircosX[1], dircosX[2], dircosY[0], dircosY[1], dircosY[2]],
 
             # instance parameters
             'InstanceNumber': sliceIndices,
