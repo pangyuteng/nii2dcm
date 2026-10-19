@@ -64,10 +64,12 @@ class Nifti:
         dircosX = -1 * A[:3, 0] / dimX
         dircosY = -1 * A[:3, 1] / dimY
 
+        sliceLoca = []
         image_pos_patient_array = []
         for iInstance in range(0, nInstances):
             T1N = fnT1N(A, iInstance)
             image_pos_patient_array.append([T1N[0], T1N[1], T1N[2]])
+            sliceLoca.append(T1N[2])
 
         # output dictionary
         nii2dcm_parameters = {
