@@ -61,8 +61,17 @@ class Nifti:
         # slice positioning in 3-D space
         # nb: -1 for dir cosines gives consistent orientation between Nifti and DICOM in ITK-Snap
         A = nib_nii.affine
-        dircosX = -1 * A[:3, 0] / dimX
-        dircosY = -1 * A[:3, 1] / dimY
+
+        # copied from https://github.com/ml-workgroup/nifti_to_dicom/blob/main/nifti_to_dicom.py
+        # Flip from RAS to LPS for the 3x3 rotation and the translation vector
+        flip = np.diag([-1, -1, 1, 1])
+        A = flip @ A
+
+        # Extract row and column direction vectors (normalize them → direction cosines)
+        R_lps = A[:3, :3]
+        row_dir = R_lps[:, 0] / np.linalg.norm(R_lps[:, 0])
+        col_dir = R_lps[:, 1] / np.linalg.norm(R_lps[:, 1])
+        image_orientation_patient = np.concatenate([row_dir, col_dir])  # 6-element array
 
         sliceLoca = []
         image_pos_patient_array = []
@@ -93,9 +102,7 @@ class Nifti:
             'RescaleIntercept': str(rescaleIntercept),
             'RescaleSlope': str(rescaleSlope),
             'SpacingBetweenSlices': round(float(dimZ), 2),
-            # alternative:
-            # 'ImageOrientationPatient': [dircosY[0], dircosY[1], dircosY[2], dircosX[0], dircosX[1], dircosX[2]],
-            'ImageOrientationPatient': [dircosX[0], dircosX[1], dircosX[2], dircosY[0], dircosY[1], dircosY[2]],
+            'ImageOrientationPatient': image_orientation_patient,
 
             # instance parameters
             'InstanceNumber': sliceIndices,
