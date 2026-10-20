@@ -19,8 +19,8 @@ class Nifti:
         def fnT1N(A, N):
             # Subfn: calculate T1N vector
             # A = affine matrix [4x4]
-            # N = slice number (counting from 1)
-            T1N = A.dot([0, 0, N - 1, 1])
+            # N = slice number (counting from 0)
+            T1N = A.dot([0, 0, N, 1])
             return T1N
 
         # load nifti
