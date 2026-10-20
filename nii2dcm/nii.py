@@ -71,7 +71,7 @@ class Nifti:
         R_lps = A[:3, :3]
         row_dir = R_lps[:, 0] / np.linalg.norm(R_lps[:, 0])
         col_dir = R_lps[:, 1] / np.linalg.norm(R_lps[:, 1])
-        image_orientation_patient = np.concatenate([row_dir, col_dir])  # 6-element array
+        image_orientation_patient = np.concatenate([row_dir, col_dir]).tolist()  # 6-element array
 
         sliceLoca = []
         image_pos_patient_array = []
